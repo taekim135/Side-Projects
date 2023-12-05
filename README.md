@@ -2,3 +2,4 @@
 Projects done during free time
 
   • Calculator using JavaSwing
+  • Single Player Snake Game
