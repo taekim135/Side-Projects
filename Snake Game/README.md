@@ -8,7 +8,7 @@
 
 ### How to run the game:
 
-    javac Calculator.java
-    java Calculator
+    javac SnakeGame.java
+    java SnakeGame
 
 ----
