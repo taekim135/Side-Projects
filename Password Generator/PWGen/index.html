@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/stylesheet.css"/>
+    <title>PW Generator</title>
+</head>
+<body>
+    <div id = "template">
+        <div class = "template2">
+            <h1>Random Password <br>Generator </h1>
+            <input type="text" id = "result" placeholder="Password display" readonly>
+            <button type= "button" id = "copyB"><img src="resources/img/clipboard.svg"></button>
+
+            <form>  
+            
+                <label for = "length" class = "categories"> Length
+                    <select name = "length" id = "length"> 
+                        <option value = "6">6</option>
+                        <option value = "7">7</option>
+                        <option value = "8">8</option>
+                        <option value = "9">9</option>
+                        <option value = "10">10</option>
+                        <option value = "11">11</option>
+                        <option value = "12">12</option>
+                        <option value = "13">13</option>
+                        <option value = "14">14</option>
+                        <option value = "15">15</option>
+                    </select>
+                </label>
+
+                <br>
+        
+                <label for = "small" class = "categories"> Small Letters
+                    <input type = "checkbox" id = "small" value = "small"> 
+                </label>
+                <br>
+                
+
+                <label for = "capital" class = "categories"> Capital Letters 
+                    <input type = "checkbox" id = "capital" value = "capital"> 
+                </label>
+                <br>
+
+                <label for = "numbers" class = "categories"> Numbers 
+                    <input type = "checkbox" id = "numbers" value = "numbers">
+                </label>
+                <br>
+                
+                <label for = "special" class = "categories">Special Characters
+                    <input type = "checkbox" id = "special" value = "special">
+                </label>
+                <br>
+                <br>
+
+                <input type = "submit" value = "Generate" id ="subButton">
+            
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+
+<footer>
+</footer>   
+
+
+    <script src = "resources/generator.js"></script>
+</html>
