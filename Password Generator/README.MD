@@ -1,6 +1,6 @@
-# Password Generator
+# Password Generator (Web-based)
 
-## HTML,CSS,JS
+## HTML, CSS, JS
 
 * Generate password
 * Choose PW length
