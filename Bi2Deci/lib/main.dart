@@ -115,8 +115,15 @@ class _InputWidgetState extends State<InputWidget> {
         ),
         SizedBox(height: 30),
         Center(child: Text("Decimal")),
-        SizedBox(height: 10),
-        SizedBox(width: 150, child: Text(result)),
+        SizedBox(height: 5),
+        SizedBox(
+          width: 150,
+          height: 30,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.blue),
+            child: Text(result),
+          ),
+        ),
       ],
     );
   }
