@@ -14,6 +14,13 @@ pubspec.lock
 
 # macOS
 .DS_Store
+macos/
+
+# andriod
+android/
+
+# ios
+ios/
 
 # Linux
 *.swp
