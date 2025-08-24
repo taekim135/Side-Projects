@@ -6,4 +6,8 @@ Projects done during free time
 • Single Player Snake Game
 
 • Password Generator
-				
+
+• Binary -> Decimal Conversion
+
+• Tiktok video Download script
+
