@@ -2,7 +2,7 @@
 
 Basic program converting binary numbers to decimals.
 - Flutter + Dart
-- Up to 8 biinary digits for users to convert
+- Up to 8 binary digits for users to convert
 
 ## User Stories
 
