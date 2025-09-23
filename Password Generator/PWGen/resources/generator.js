@@ -1,7 +1,13 @@
-// Receive form from user
-// criteria & generate pw
+/* 
+This file processes the user's input by evaluating each category.
+Based on those input values, password is generated
+User input received via a form submisison
+*/
 
 
+/* 
+Chars/num/symbols for creating password
+*/
 const letters = ['a','b','c','d','e','f','g','h',
     'i','j','k','l','m','n','o','p','q','r','s','t'
     ,'u','v','w','x','y','z']
@@ -13,31 +19,34 @@ const specials = ['@','#','$','&','%','!','?']
 document.addEventListener("DOMContentLoaded", () => {
     const formReceived = document.querySelector("form");
     
-    // listen for a sbumit event, then run processForm u=function
+    // listen for a submit event, then run processForm function
     formReceived.addEventListener("submit", processForm);
 
+
+    /* 
+    Collect data/input from the form, create pw, return to user
+    */
     function processForm(event){
 
         // prevents page reload/reset - else the pw generated will be lost
         event.preventDefault();
 
-        // collect data from form
+        // store each category into var
         var size = document.getElementById("length").value;
         var sL = document.getElementById("small").checked;
         var capL = document.getElementById("capital").checked;
         var num = document.getElementById("numbers").checked;
         var special = document.getElementById("special").checked;
 
-        // if (!sL && !capL && !num && !special){
-        //     console.log("Nothing selected");
-
-        // }
-
         var newPW = generatePW(size, sL, capL, num, special);
+
         document.getElementById("result").placeholder = newPW;
-        
     };
 
+    /* 
+    Actual method to generate pw
+    all data/input into parameters
+    */
     const generatePW = (size, sL, capL, num, special) => {
         var passWord = "";
 
