@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // listen for a submit event, then run processForm function
     formReceived.addEventListener("submit", processForm);
 
-
     /* 
     Collect data/input from the form, create pw, return to user
     */
@@ -78,11 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 passWord += specials[specialChar];
                 size --;
             }
-            
         };
 
 
         // shuffle the candidate characters to randomize the arrangement
+        /* 
+            NOT SHUFFLING -> Fix needed
+        */
         let currIndex = passWord.length - 1;
 
         while (currIndex >= 0){
