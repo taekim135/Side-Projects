@@ -1,0 +1,35 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# macOS
+.DS_Store
+macos/
+
+# andriod
+android/
+
+# ios
+ios/
+
+# Linux
+*.swp
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Generated plugin files
+.generated/
