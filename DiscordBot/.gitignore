@@ -1,0 +1,4 @@
+#ignore this file/environment variable
+.env
+.qodo
+.vscode
