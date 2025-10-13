@@ -11,3 +11,5 @@ Projects done during free time
 
 • Tiktok video Download script
 
+• Discord Chat Bot
+
