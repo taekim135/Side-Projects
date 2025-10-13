@@ -68,7 +68,7 @@ async def quote(ctx):
 # name parameter = name of role defined in the server
 # the role needs to exist first in the server.
 @bot.command()
-async def assing(ctx):
+async def assign(ctx):
     role = discord.utils.get(ctx.guild.roles, name=roles)
 
     if role:
@@ -80,8 +80,41 @@ async def assing(ctx):
 
 
 
+@bot.command()
+async def remove(ctx):
+    role = discord.utils.get(ctx.guild.roles, name=roles)
+
+    if role:
+        await ctx.author.remove_roles(role)
+        await ctx.send(f"{ctx.author.mention} You lost your title: {roles}")
+    else:
+        await ctx.send("Role does not exist")
 
 
+@bot.command()
+@commands.has_role("Admin")
+async def secret(ctx):
+    await ctx.send("This is a secret message for visitors only")
+
+@secret.error
+async def secret_error(ctx, error):
+    if isinstance(error, commands.MissingRole):
+        await ctx.send("You do not have permission for that", error)
+
+
+
+#sending dm to user
+@bot.command()
+async def dm(ctx,*,message):
+    await ctx.author.send(message)
+    await ctx.send("Check your DMs!")
+
+@bot.command()
+async def reply(ctx):
+    await ctx.reply("This is a reply")
+    
+    
+    
 
 
 
