@@ -50,8 +50,8 @@ async def vote(ctx,*,question):
     poll = discord.Embed(title = "Vote", description = question)
     pollMessage = await ctx.send(embed = poll)
 
-    await pollMessage.add_reaction("Good")
-    await pollMessage.add_reaction("Bad")
+    await pollMessage.add_reaction("❤️")
+    await pollMessage.add_reaction("💔")
     
 
 
