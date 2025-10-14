@@ -115,11 +115,7 @@ async def reply(ctx):
     
     
     
-
-
-
-
-
+# start the bot using the token
 bot.run(os.getenv("API_KEY"), log_handler=handler, log_level=logging.DEBUG)
 
 

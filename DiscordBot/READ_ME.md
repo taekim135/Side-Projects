@@ -17,9 +17,11 @@ To run this project, you will need to add the following environment variables to
 python 3
 dotenv
 discord.py (discord API wrapper)
+requests (for API calls)
 
 ```bash
   python3 -m pip install -U discord.py
+  python3 -m pip install requests
 ```
     
 ## API Reference
