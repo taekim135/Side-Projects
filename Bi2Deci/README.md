@@ -15,7 +15,7 @@ A Flutter program for converting binary numbers to decimals.
 1. Clone the repo
 2. Navigate to this folder:
    ```bash
-   cd bi2deci
+   cd Bi2Deci
 
 3. Run the app
    ```
