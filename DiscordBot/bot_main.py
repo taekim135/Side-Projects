@@ -1,6 +1,6 @@
 # build discord bot using discord.py library (wrapper for discord API)
 # Client obj -> discord server, event handling
-# this file/bot must be running 24/7 for it to be working on discord channel
+# this file/bot must be running 24/7 for it to be working on the discord channel
 import discord
 from discord.ext import commands
 import os
@@ -25,8 +25,9 @@ bot = commands.Bot(command_prefix = "$", intents=intents)
 
 
 # async = run/execute simultaenously w/o stopping main thread
-async def on_ready(self):
-    print("Logged in as {0}!".format(self.user))
+@bot.event
+async def on_ready():
+    print("Logged in as {0}!".format(bot.user.name))
 
 
 
@@ -38,6 +39,19 @@ async def on_ready(self):
 async def hello(ctx):
     await ctx.send(f'Hi {ctx.author.mention}!')
 
+# any messages sent in the server (if all needs to be responded to)
+# event listener
+# not NB as bot,commands can both listen to messages
+# useful for message filtering, bad words, auto reply, 
+#                   logging/writing messages open() f.write
+# @bot.event
+# async def on_message(message):
+#     if message.author.bot:
+#         return
+#     await bot.process_commands(message) 
+# the line above (process_commands) checks for all commands linked to the bot
+# if not included, the bot will not respond to any commands
+# is the message sent a command or just a normal message to other users?
 
 async def on_member_join(person):
     await person.send(f"Welcome to the Server {person.name}! You can prompt me using the $ symbol")
@@ -92,7 +106,7 @@ async def remove(ctx):
 
 
 @bot.command()
-@commands.has_role("Admin")
+@commands.has_role("Visitor")
 async def secret(ctx):
     await ctx.send("This is a secret message for visitors only")
 

@@ -22,6 +22,8 @@ requests (for API calls)
 ```bash
   python3 -m pip install -U discord.py
   python3 -m pip install requests
+
+  pip3 ./install.sh
 ```
     
 ## API Reference
