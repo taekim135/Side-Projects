@@ -17,5 +17,6 @@ A Flutter program for converting binary numbers to decimals.
    ```bash
    cd bi2deci
 
-3. ```
+3. Run the app
+   ```
    flutter run
