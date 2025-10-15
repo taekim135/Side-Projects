@@ -24,5 +24,5 @@ A Flutter program for converting binary numbers to decimals.
 4. Select "2" for Chrome (it will automatically open in Chrome)
 
 ## Features to improve/fix
--   [x] Some visual improvements
+-   [ ] Some visual improvements
 
