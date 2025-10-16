@@ -11,7 +11,6 @@ To run this project, you will need to add the following environment variables to
 `API_KEY`
 
 
-
 ## Installation
 
 python 3
@@ -25,7 +24,11 @@ requests (for API calls)
 
   pip3 ./install.sh
 ```
-    
+
+## Running the program
+1. 
+'''terminal
+
 ## API Reference
 zenquotes.io for grabbing random quotes for the bot.
 Quotes are displayed to the users when requested.
