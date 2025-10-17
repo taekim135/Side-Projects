@@ -8,6 +8,7 @@ import logging
 import requests
 import json
 from dotenv import load_dotenv
+import wavelink
 
 # bot itself but in Discord's API world, bot = user/client talking to server
 
@@ -17,7 +18,7 @@ from dotenv import load_dotenv
 intents = discord.Intents.default()
 intents.message_content = True  
 handler = logging.FileHandler(filename = 'bot.log', encoding = "utf-8", mode = 'w')
-roles = "Visitor"
+roles = ["Visitor", "Member", "Moderator", "Admin"]
 
 # client/bot activated using token
 load_dotenv()
@@ -28,6 +29,15 @@ bot = commands.Bot(command_prefix = "$", intents=intents)
 @bot.event
 async def on_ready():
     print("Logged in as {0}!".format(bot.user.name))
+    print("Initializing Wavelink Node...")
+    await wavelink.Nodepool.create_node(
+        bot=bot,
+        host='localhost',
+        port = 3333,
+        password = os.getenv("WAVELINK_PW")
+    )
+    print("Wavelink Connected")
+                                        
 
 
 
@@ -57,7 +67,6 @@ async def on_member_join(person):
     await person.send(f"Welcome to the Server {person.name}! You can prompt me using the $ symbol")
 
 
-
 @bot.command()
 async def vote(ctx,*,question):
     # embedded message
@@ -75,6 +84,13 @@ async def quote(ctx):
     res = requests.get("https://zenquotes.io/api/random")
     data = json.loads(res.text)
     await print(data)
+
+
+# command to play music from youtube
+@bot.command()
+async def play(data):
+    pass
+
 
 
 
