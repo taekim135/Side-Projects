@@ -1,7 +1,7 @@
 # Bin2Dec (Binary to Deciman Converter)
 
 A Flutter program for converting binary numbers to decimals.
-- Flutter + Dart
+- Flutter + Dart (web-based)
 - Up to 8 binary digits for users to convert
 
 ## User Stories
@@ -20,3 +20,9 @@ A Flutter program for converting binary numbers to decimals.
 3. Run the app
    ```
    flutter run
+   
+4. Select "2" for Chrome (it will automatically open in Chrome)
+
+## Features to improve/fix
+-   [ ] Some visual improvements
+
