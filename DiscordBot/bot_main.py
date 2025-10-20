@@ -12,13 +12,22 @@ from dotenv import load_dotenv
 import yt_dlp
 
 
-
 # specifies the bot's purpose
 # default from discrod.dev config (messaging for now)
 intents = discord.Intents.default()
 intents.message_content = True  
 handler = logging.FileHandler(filename = 'bot.log', encoding = "utf-8", mode = 'w')
 roles = ["Visitor", "Member", "Moderator", "Admin"]
+
+
+#yt_dlp: downloading youtube videos & audios
+options = {
+    'format': 'mp4'
+
+
+}
+
+URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
 
 # client/bot activated using token
 load_dotenv()
@@ -30,6 +39,19 @@ bot = commands.Bot(command_prefix = "$", intents=intents)
 async def on_ready():
     print("Logged in as {0}!".format(bot.user.name))
                                         
+
+# let users download video/audio
+# send the downloaded file to user via dm for privacy
+# download the file into a folder and then send to user
+@bot.command()
+async def download(ctx):
+    with yt_dlp.YoutubeDL(options) as yt:
+        await ctx.send("Downloading ", URL)
+        yt.download(URL)
+        await ctx.send("Completed")
+    
+    ctx.send(file=discord.File())
+
 
 
 
