@@ -1,4 +1,5 @@
 # build discord bot using discord.py library (wrapper for discord API)
+# bot itself but in Discord's API world, bot = user/client talking to server
 # Client obj -> discord server, event handling
 # this file/bot must be running 24/7 for it to be working on the discord channel
 import discord
@@ -8,9 +9,8 @@ import logging
 import requests
 import json
 from dotenv import load_dotenv
-import wavelink
+import yt_dlp
 
-# bot itself but in Discord's API world, bot = user/client talking to server
 
 
 # specifies the bot's purpose
@@ -29,14 +29,6 @@ bot = commands.Bot(command_prefix = "$", intents=intents)
 @bot.event
 async def on_ready():
     print("Logged in as {0}!".format(bot.user.name))
-    print("Initializing Wavelink Node...")
-    await wavelink.Nodepool.create_node(
-        bot=bot,
-        host='localhost',
-        port = 3333,
-        password = os.getenv("WAVELINK_PW")
-    )
-    print("Wavelink Connected")
                                         
 
 
