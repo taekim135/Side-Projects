@@ -45,10 +45,10 @@ async def on_ready():
 # download the file into a folder and then send to user
 @bot.command()
 async def download(ctx):
-    with yt_dlp.YoutubeDL() as yt:
-        await ctx.send("Downloading ")
-        yt.download(URL)
-        await ctx.send("Completed")
+    # with yt_dlp.YoutubeDL() as yt:
+    #     await ctx.send("Downloading ")
+    #     yt.download(URL)
+    #     await ctx.send("Completed")
     
     ctx.send(file=discord.File(r'./downloads/digital_student_id.png'))
 
