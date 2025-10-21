@@ -1,4 +1,11 @@
 #ignore this file/environment variable
 .env
+
+#qodo extension
 .qodo
+
+#ide stuffs
 .vscode
+
+# download folder for users when prompting $download command
+/downloads

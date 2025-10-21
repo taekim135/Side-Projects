@@ -22,7 +22,7 @@ roles = ["Visitor", "Member", "Moderator", "Admin"]
 
 #yt_dlp: downloading youtube videos & audios
 options = {
-    'format': 'mp4'
+    'format': 'mp3'
 
 
 }
@@ -50,7 +50,7 @@ async def download(ctx):
     #     yt.download(URL)
     #     await ctx.send("Completed")
     
-    ctx.send(file=discord.File(r'./downloads/digital_student_id.png'))
+    await ctx.send(file=discord.File('./downloads/digital_student_id.png'))
 
 
 
