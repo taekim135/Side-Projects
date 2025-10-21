@@ -22,8 +22,14 @@ roles = ["Visitor", "Member", "Moderator", "Admin"]
 
 #yt_dlp: downloading youtube videos & audios
 options = {
-    'format': 'mp3'
+    'format': 'm4a/bestaudio/best',
+    'outtmpl': './downloads/%(title)s.%(ext)s',
 
+    # Extract audio from video using ffmpeg
+    'postprocessors': [{  
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'm4a',
+    }]
 
 }
 
@@ -40,19 +46,29 @@ async def on_ready():
     print("Logged in as {0}!".format(bot.user.name))
                                         
 
+#helper function for extracting file into from downloaded video/audio
+
+
+
+
+
 # let users download video/audio
 # send the downloaded file to user via dm for privacy
 # download the file into a folder and then send to user
 @bot.command()
-async def download(ctx):
+async def downloadAudio(ctx):
+    with yt_dlp.YoutubeDL(options) as yt:
+        await ctx.reply("Downloading...")
+        yt.download(URL)
+        await ctx.send("Download Completed. Sending the file to your DM")
+
+        await ctx.author.send(file=discord.File(""))
+
     # with yt_dlp.YoutubeDL() as yt:
-    #     await ctx.send("Downloading ")
-    #     yt.download(URL)
-    #     await ctx.send("Completed")
-    
-    await ctx.send(file=discord.File('./downloads/digital_student_id.png'))
+    #     info = yt.extract_info(URL, download=False)
+    #     print(json.dumps(yt.sanitize_info(info)))
 
-
+    #await ctx.send(file=discord.File('./downloads/luffy.png'))
 
 
 # decorator python function into a command (functionName = user types)
