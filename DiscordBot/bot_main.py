@@ -46,10 +46,6 @@ async def on_ready():
     print("Logged in as {0}!".format(bot.user.name))
                                         
 
-#helper function for extracting file into from downloaded video/audio
-
-
-
 
 
 # let users download video/audio
@@ -62,7 +58,7 @@ async def downloadAudio(ctx):
         yt.download(URL)
         await ctx.send("Download Completed. Sending the file to your DM")
 
-        await ctx.author.send(file=discord.File(""))
+        await ctx.author.send("This is a dm test for file sending after download")
 
     # with yt_dlp.YoutubeDL() as yt:
     #     info = yt.extract_info(URL, download=False)
