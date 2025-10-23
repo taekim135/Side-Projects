@@ -18,6 +18,7 @@ intents = discord.Intents.default()
 intents.message_content = True  
 handler = logging.FileHandler(filename = 'bot.log', encoding = "utf-8", mode = 'w')
 roles = ["Visitor", "Member", "Moderator", "Admin"]
+role = "Visitor"
 
 
 #yt_dlp: downloading youtube videos & audios
@@ -30,7 +31,6 @@ options = {
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'm4a',
     }]
-
 }
 
 URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
@@ -54,17 +54,23 @@ async def on_ready():
 @bot.command()
 async def downloadAudio(ctx):
     with yt_dlp.YoutubeDL(options) as yt:
-        await ctx.reply("Downloading...")
-        yt.download(URL)
-        await ctx.send("Download Completed. Sending the file to your DM")
+        #await ctx.reply("Downloading...")
+        #yt.download(URL)
+        #await ctx.send("Download Completed. Sending the file to your DM")
 
-        await ctx.author.send("This is a dm test for file sending after download")
+        # find the file by searching through the info
+        # send via dm for privacy
+        info = yt.extract_info(URL, download=True)
+        # ensures that the data is clean/removes any non-serialized obj/private var (aka obj x converted to string)
+        # video info in dict 
+        tempTitle = yt.sanitize_info(info)["title"]
+        title = tempTitle.replace("'","")
 
-    # with yt_dlp.YoutubeDL() as yt:
-    #     info = yt.extract_info(URL, download=False)
-    #     print(json.dumps(yt.sanitize_info(info)))
+        print(repr(title))
+        print(title)
+        await ctx.send(file=discord.File('./downloads/' + title + '.m4a'))
+        # await ctx.author.send("This is a dm test for file sending after download")
 
-    #await ctx.send(file=discord.File('./downloads/luffy.png'))
 
 
 # decorator python function into a command (functionName = user types)
@@ -148,14 +154,14 @@ async def remove(ctx):
 
 
 @bot.command()
-@commands.has_role("Visitor")
+@commands.has_role(role)
 async def secret(ctx):
     await ctx.send("This is a secret message for visitors only")
 
 @secret.error
 async def secret_error(ctx, error):
     if isinstance(error, commands.MissingRole):
-        await ctx.send("You do not have permission for that", error)
+        await ctx.send("You do not have permission for that!")
 
 
 
