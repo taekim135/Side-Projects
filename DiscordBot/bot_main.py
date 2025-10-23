@@ -54,22 +54,18 @@ async def on_ready():
 @bot.command()
 async def downloadAudio(ctx):
     with yt_dlp.YoutubeDL(options) as yt:
-        #await ctx.reply("Downloading...")
-        #yt.download(URL)
-        #await ctx.send("Download Completed. Sending the file to your DM")
-
-        # find the file by searching through the info
-        # send via dm for privacy
+        await ctx.reply("Downloading...")
+        
+        # grab the metadata of the video
         info = yt.extract_info(URL, download=True)
         # ensures that the data is clean/removes any non-serialized obj/private var (aka obj x converted to string)
-        # video info in dict 
-        tempTitle = yt.sanitize_info(info)["title"]
-        title = tempTitle.replace("'","")
+        # takes the output template and applies to the title
+        # matches with the title from the download
+        title = yt.prepare_filename(info)
 
-        print(repr(title))
-        print(title)
-        await ctx.send(file=discord.File('./downloads/' + title + '.m4a'))
-        # await ctx.author.send("This is a dm test for file sending after download")
+        # send via dm for privacy
+        await ctx.author.send(file=discord.File(title))
+        await ctx.send("Download Completed. Please check your dm for the file")
 
 
 
