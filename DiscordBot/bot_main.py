@@ -43,7 +43,7 @@ bot = commands.Bot(command_prefix = "$", intents=intents)
 # async = run/execute simultaenously w/o stopping main thread
 @bot.event
 async def on_ready():
-    print("Logged in as {0}!".format(bot.user.name))
+    print("Logged in as {0}!".format(bot.user.display_name))
                                         
 
 
@@ -64,6 +64,7 @@ async def downloadAudio(ctx):
         title = yt.prepare_filename(info)
 
         # send via dm for privacy
+        await ctx.author.send("Here is the file!")
         await ctx.author.send(file=discord.File(title))
         await ctx.send("Download Completed. Please check your dm for the file")
 
@@ -111,7 +112,9 @@ async def vote(ctx,*,question):
 async def quote(ctx):
     res = requests.get("https://zenquotes.io/api/random")
     data = json.loads(res.text)
-    await print(data)
+    quoteContent = data[0]["q"]
+    author = data[0]["a"]
+    await ctx.send(quoteContent +  "\n- " + author + " -")
 
 
 # command to play music from youtube
@@ -175,7 +178,3 @@ async def reply(ctx):
     
 # start the bot using the token
 bot.run(os.getenv("API_KEY"), log_handler=handler, log_level=logging.DEBUG)
-
-
-
-
