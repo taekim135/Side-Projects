@@ -9,9 +9,9 @@ Simply invite the bot to your server and use the commands.
 - Get random inspirational quotes
 
 #### Features to be worked on/under development:
-- Download youtube videos (in audio format) and get them sent to your DMs
 - Stream youtube videos (in audio format) in your voice channel
-- Get random inspirational quotes
+- Add more commands
+- Create roles for different access levels
 
 ## Environment Variables
 To run this project, you will need to add the following environment variables to your .env file
