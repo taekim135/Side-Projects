@@ -21,7 +21,7 @@ roles = ["Visitor", "Member", "Moderator", "Admin"]
 role = "Visitor"
 
 
-#yt_dlp: downloading youtube videos & audios
+#yt_dlp: downloading youtube audios
 options = {
     'format': 'm4a/bestaudio/best',
     'outtmpl': './downloads/%(title)s.%(ext)s',
@@ -33,7 +33,7 @@ options = {
     }]
 }
 
-URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
+#URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
 
 # client/bot activated using token
 load_dotenv()
@@ -52,12 +52,12 @@ async def on_ready():
 # send the downloaded file to user via dm for privacy
 # download the file into a folder and then send to user
 @bot.command()
-async def downloadAudio(ctx):
+async def downloadAudio(ctx,*, userURL):
     with yt_dlp.YoutubeDL(options) as yt:
         await ctx.reply("Downloading...")
         
         # grab the metadata of the video
-        info = yt.extract_info(URL, download=True)
+        info = yt.extract_info(userURL, download=True)
         # ensures that the data is clean/removes any non-serialized obj/private var (aka obj x converted to string)
         # takes the output template and applies to the title
         # matches with the title from the download
