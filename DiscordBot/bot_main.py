@@ -19,12 +19,14 @@ intents.message_content = True
 handler = logging.FileHandler(filename = 'bot.log', encoding = "utf-8", mode = 'w')
 roles = ["Visitor", "Member", "Moderator", "Admin"]
 role = "Visitor"
+#URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
 
 
 #yt_dlp: downloading youtube audios
 options = {
     'format': 'm4a/bestaudio/best',
     'outtmpl': './downloads/%(title)s.%(ext)s',
+    'noplaylist': True,
 
     # Extract audio from video using ffmpeg
     'postprocessors': [{  
@@ -32,8 +34,6 @@ options = {
         'preferredcodec': 'm4a',
     }]
 }
-
-#URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
 
 # client/bot activated using token
 load_dotenv()
@@ -54,19 +54,28 @@ async def on_ready():
 @bot.command()
 async def downloadAudio(ctx,*, userURL):
     with yt_dlp.YoutubeDL(options) as yt:
-        await ctx.reply("Downloading...")
-        
-        # grab the metadata of the video
-        info = yt.extract_info(userURL, download=True)
-        # ensures that the data is clean/removes any non-serialized obj/private var (aka obj x converted to string)
-        # takes the output template and applies to the title
-        # matches with the title from the download
-        title = yt.prepare_filename(info)
 
-        # send via dm for privacy
-        await ctx.author.send("Here is the file!")
-        await ctx.author.send(file=discord.File(title))
-        await ctx.send("Download Completed. Please check your dm for the file")
+        audioLength = yt.extract_info(userURL, download=False)["duration"]
+
+        # limit users to only download audios with 10min length
+        # for file size purpose
+        if audioLength > 600:
+            await ctx.send("File too big to download! Max should be 10 min long")
+
+        else:
+            await ctx.reply("Downloading...")
+            
+            # grab the metadata of the video
+            info = yt.extract_info(userURL, download=True)
+            # ensures that the data is clean/removes any non-serialized obj/private var (aka obj x converted to string)
+            # takes the output template and applies to the title
+            # matches with the title from the download
+            title = yt.prepare_filename(info)
+
+            # send via dm for privacy
+            await ctx.author.send("Here is the file!")
+            await ctx.author.send(file=discord.File(title))
+            await ctx.send("Download Completed. Please check your dm for the file")
 
 
 
