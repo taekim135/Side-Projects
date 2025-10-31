@@ -4,6 +4,7 @@
 # this file/bot must be running 24/7 for it to be working on the discord channel
 import discord
 from discord.ext import commands
+from discord import FFmpegPCMAudio
 import os
 import logging
 import requests
@@ -19,7 +20,7 @@ intents.message_content = True
 handler = logging.FileHandler(filename = 'bot.log', encoding = "utf-8", mode = 'w')
 roles = ["Visitor", "Member", "Moderator", "Admin"]
 role = "Visitor"
-#URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
+# URL = "https://www.youtube.com/watch?v=aP2WHQKJVsw"
 
 
 #yt_dlp: downloading youtube audios
@@ -39,13 +40,10 @@ options = {
 load_dotenv()
 bot = commands.Bot(command_prefix = "$", intents=intents)
 
-
 # async = run/execute simultaenously w/o stopping main thread
 @bot.event
 async def on_ready():
-    print("Logged in as {0}!".format(bot.user.display_name))
-                                        
-
+    print("Logged in as {0}!".format(bot.user.display_name))    
 
 
 # let users download video/audio
@@ -76,7 +74,6 @@ async def downloadAudio(ctx,*, userURL):
             await ctx.author.send("Here is the file!")
             await ctx.author.send(file=discord.File(title))
             await ctx.send("Download Completed. Please check your dm for the file")
-
 
 
 # decorator python function into a command (functionName = user types)
@@ -113,7 +110,6 @@ async def vote(ctx,*,question):
 
     await pollMessage.add_reaction("❤️")
     await pollMessage.add_reaction("💔")
-    
 
 
 # function to retrieve a quote
@@ -128,9 +124,43 @@ async def quote(ctx):
 
 # command to play music from youtube
 @bot.command()
-async def play(data):
-    pass
+async def play(ctx):
+    discord.VoiceChannel()
+    await ctx.send("I have joined to voice chat")
 
+
+# command for join
+# tell the bot to join the voice channel
+# if the user not in the voice chat, tell them to join the voice first to call the cmd
+@bot.command()
+async def join(ctx):
+    if ctx.author.voice is None:
+        await ctx.send("You must join a voice channel first!")
+    else:
+        channelName = ctx.author.voice.channel
+        await channelName.connect()
+        await ctx.send("I have joined the voice channel!")
+
+
+# command for leave
+@bot.command()
+async def leave(ctx):
+    #user not in a voice channel
+    if ctx.author.voice is None:
+        await ctx.send("You must be in a voice channel first!")
+
+    # bot not in a voice channel
+    elif ctx.voice_client is None:
+        await ctx.send("I'm not in a voice channel")
+
+    # bot not in the same voice channel
+    elif ctx.voice_client.channel != ctx.author.voice.channel:
+        await ctx.send("You & I ain't in the same voice channel")
+
+    else:
+        channelName = ctx.author.voice.channel
+        await ctx.voice_client.disconnect()
+        await ctx.send("I left the voice channel")
 
 
 
@@ -171,13 +201,6 @@ async def secret_error(ctx, error):
     if isinstance(error, commands.MissingRole):
         await ctx.send("You do not have permission for that!")
 
-
-
-#sending dm to user
-@bot.command()
-async def dm(ctx,*,message):
-    await ctx.author.send(message)
-    await ctx.send("Check your DMs!")
 
 @bot.command()
 async def reply(ctx):
