@@ -124,9 +124,15 @@ async def quote(ctx):
 
 # command to play music from youtube
 @bot.command()
-async def play(ctx):
-    discord.VoiceChannel()
-    await ctx.send("I have joined to voice chat")
+async def play(ctx, url):
+    # let the bot join the voice channel
+    join(ctx)
+
+    # this is to prevent any disconnection & allow continuos streaming  
+    FFMPEG_OPTS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+
+
+    await ctx.send("Let's hit some music")
 
 
 # command for join
@@ -139,7 +145,7 @@ async def join(ctx):
     else:
         channelName = ctx.author.voice.channel
         await channelName.connect()
-        await ctx.send("I have joined the voice channel!")
+        await ctx.reply("I'm here! What's up?")
 
 
 # command for leave
@@ -158,7 +164,6 @@ async def leave(ctx):
         await ctx.send("You & I ain't in the same voice channel")
 
     else:
-        channelName = ctx.author.voice.channel
         await ctx.voice_client.disconnect()
         await ctx.send("I left the voice channel")
 
