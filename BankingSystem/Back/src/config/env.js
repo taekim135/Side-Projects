@@ -3,7 +3,7 @@
 // no direct access to process.env
 require("dotenv").config()
 
-const SALT = process.env.SALT
+const SALT = parseInt(process.env.SALT)
 const PORT = process.env.PORT
 const DBURL = process.env.DATABASE_URL
 
