@@ -1,6 +1,7 @@
 const {prisma} = require("../utils/db")
 const bcrypt = require("bcryptjs")
-const {SALT} = require("../config/env")
+const jwt = require("jsonwebtoken")
+const {SECRET, EXPIRES_IN, SALT} = require("../config/env")
 
 
 const registerUser = async (email, password, fullname) => {
@@ -40,16 +41,23 @@ const registerUser = async (email, password, fullname) => {
 const loginUser = async (email, password) => {
     const userFound = await prisma.user.findUnique({
         where: { email },
-        select: { email: true, hashPW: true },
+        select: { fullname:true, id: true, email: true, hashPW: true },
     });
 
-    if (!userFound){
-        throw new Error("Incorrect email or password")
+    if (!userFound) throw new Error("Incorrect email or password")
+
+    const correctPW = await bcrypt.compare(password, userFound.hashPW) 
+    if (!correctPW) throw new Error("Incorrect email or password")
+
+    const userToken = {
+        name: userFound.fullname,
+        id: userFound.id
     }
 
-    const correctPW = await bcrypt.compare(password, hashPW)
+    const token = jwt.sign(userToken, SECRET, { expiresIn: EXPIRES_IN })
 
-    // token here
+    return {token, email: userFound.email, fullname: userFound.fullname}
+    
 }
 
 module.exports = {registerUser, loginUser}

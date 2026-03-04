@@ -19,6 +19,7 @@ const login = async (request,response) => {
     const {email, password} = request.body
 
     const result = await authService.loginUser(email,password)
+
     console.log('Login Successful!');
     response.status(200).send(result)
 }
