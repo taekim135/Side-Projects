@@ -23,8 +23,8 @@ beforeEach(async () => {
 })
 
 
-describe("Testing Login feature", () => {
-    test("Email/PW incorrect", async () => {
+describe("Login Fails", () => {
+    test("Email incorrect", async () => {
         const user = {
             email: "wrongEmail@gmail.com",
             password: TEST_PW
@@ -36,8 +36,10 @@ describe("Testing Login feature", () => {
                         .expect('Content-Type', /application\/json/)
 
         assert(result.body.error.includes("Incorrect"))
+    })
 
-        const user2 = {
+    test("PW incorrect", async () => {
+         const user2 = {
             email: TEST_EMAIL,
             password: "wrongPW"
         }
@@ -48,9 +50,7 @@ describe("Testing Login feature", () => {
                         .expect('Content-Type', /application\/json/)
 
         assert(result2.body.error.includes("Incorrect"))
-
     })
-
 
     test("Missing fields", async () => {
         const user = {
@@ -66,18 +66,43 @@ describe("Testing Login feature", () => {
         assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("Incorrect"))
     })
+})
 
+describe("Login Success", () => {
+    const testUser = {
+            email: TEST_EMAIL,
+            password: TEST_PW
+    }
 
+    test("Valid credentials with status 200", async () => {
+        await api.post("/api/auth/login")
+                                .send(testUser)
+                                .expect(200)
+                                .expect('Content-Type', /application\/json/)
 
+    })
 
+    test("When logged in - token, email, fullname received", async () => {
+        const response = await api.post("/api/auth/login")
+                                .send(testUser)
+                                .expect(200)
+                                .expect('Content-Type', /application\/json/)
 
+        assert.ok(response.body.token)
+        assert.ok(response.body.email)
+        assert.ok(response.body.fullname)
 
+    })
 
+    test("No hashed PW at reponse", async () => {
+        const response = await api.post("/api/auth/login")
+                                .send(testUser)
+                                .expect(200)
+                                .expect('Content-Type', /application\/json/)
 
+        assert.ok(!response.body.hashPW)
 
-
-
-
+    })
 })
 
 
