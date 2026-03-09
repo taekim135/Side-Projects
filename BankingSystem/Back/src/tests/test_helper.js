@@ -67,5 +67,6 @@ const generateUser = (type) => {
     }
 }
 
+//TODO: method to get each user/ post user. isolate
 
 module.exports = {generateUser}

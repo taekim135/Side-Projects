@@ -3,7 +3,7 @@ const supertest = require("supertest")
 const bcrypt = require("bcryptjs")
 const assert = require("assert")
 const {prisma} = require("../utils/db")
-const {test, beforeEach, describe} = require("node:test")
+const {test, beforeEach, after, describe} = require("node:test")
 const {generateUser} = require("./test_helper")
 const { TEST_FULLNAME, TEST_EMAIL, TEST_PW } = require("../config/env")
 const api = supertest(app)
@@ -33,7 +33,9 @@ describe("Registration Fails: ", () => {
         const result = await api.post("/api/auth/register")
                                 .send(testUser)
                                 .expect(400)
+                                .expect('Content-Type', /application\/json/)                       
 
+        assert.ok(result.body.error)
         assert(result.body.error.includes("already registered"))
 
     })
@@ -44,7 +46,9 @@ describe("Registration Fails: ", () => {
         const result = await api.post("/api/auth/register")
                                 .send(mismatchedPWUser)
                                 .expect(400)
+                                .expect('Content-Type', /application\/json/)
         
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("don't match"))
     })
 
@@ -54,7 +58,9 @@ describe("Registration Fails: ", () => {
         const result = await api.post("/api/auth/register")
                                 .send(shortUser)
                                 .expect(400)
+                                .expect('Content-Type', /application\/json/)
         
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("at least 8"))
 
     })
@@ -65,38 +71,47 @@ describe("Registration Fails: ", () => {
         const result = await api.post("/api/auth/register")
                                 .send(emailUser)
                                 .expect(400)
+                                .expect('Content-Type', /application\/json/)
         
+
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("email format"))
 
     })
 
-    test("empty email", async () => {
+    test("Empty email", async () => {
         const emptyEmailUser = generateUser("emptyEmail")
 
         const result = await api.post("/api/auth/register")
                                 .send(emptyEmailUser)
                                 .expect(400)
+                                .expect('Content-Type', /application\/json/)
         
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("required"))
     })
 
-    test("empty password", async () => {
+    test("Empty password", async () => {
         const emptyPWUser = generateUser("emptyPW")
 
         const result = await api.post("/api/auth/register")
                                 .send(emptyPWUser)
                                 .expect(400)
-        
+                                .expect('Content-Type', /application\/json/)
+
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("required"))
     })
 
-    test("empty fullname", async () => {
+    test("Empty fullname", async () => {
         const emptyFullNameUser = generateUser("emptyName")
 
         const result = await api.post("/api/auth/register")
                                 .send(emptyFullNameUser)
                                 .expect(400)
-        
+                                .expect('Content-Type', /application\/json/)
+
+        assert.ok(result.body.errors)
         assert(result.body.errors[0].msg.includes("required"))
     })
 })
@@ -142,3 +157,7 @@ describe("Registration Successful", () => {
 
 })
 
+
+after(async () => {
+    await prisma.$disconnect()
+})
