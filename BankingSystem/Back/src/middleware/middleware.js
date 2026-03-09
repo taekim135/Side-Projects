@@ -32,6 +32,7 @@ const requestLogger = (request, response, next) => {
 }
 
 
+// for validating @routes input fields before posting to /register or /login
 const validate = (request, response, next) => {
     const errors = validationResult(request)
     

@@ -1,5 +1,5 @@
 // endpoints
-
+// /api/auth
 const authRouter = require("express").Router()
 const {register, login} = require("../controllers/auth.controller")
 const { body } = require('express-validator')
@@ -22,6 +22,11 @@ authRouter.post("/register", [
     body('fullname').trim().notEmpty().withMessage('Full name is required')
 ], validate, register)
 
-authRouter.post('/login', login)
+authRouter.post('/login', [
+    body('email').trim().notEmpty().withMessage('Incorrect Email or PW')
+            .isEmail().withMessage('Invalid email format'),
+    
+    body('password').trim().notEmpty().withMessage('Incorrect Email or PW')
+] , validate, login)
 
 module.exports = {authRouter}
