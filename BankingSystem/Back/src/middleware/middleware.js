@@ -42,4 +42,40 @@ const validate = (request, response, next) => {
     next()
 }
 
-module.exports = {errorHandler, requestLogger, validate}
+
+// token only needed after login
+// or @routes where login is required
+const tokenExtractor = (request, response, next) => {
+  const authorization = request.get("authorization")
+
+  // no Bearer auth found, just move onto the next middleware
+  if (authorization && authorization.startsWith("Bearer")){
+    const Extractedtoken =  authorization.replace("Bearer ", "")
+    // Middleware = ingredients prepping:
+    // Extracts ingredients (token)
+    // Puts them on the counter (request object)
+    // Says "ready for the chef!" (calls next())
+
+    // Route handler = chef:
+    // Takes the ingredients (request.token)
+    // Cooks the dish (creates blog)
+    // Serves it (response.json())
+    request.token = Extractedtoken
+  }
+
+  next()
+}
+
+
+// find who made the request
+const userExtractor = async (request, response, next) => {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if (!decodedToken?.id){
+        return response.status(401).send({error: "User ID not Found in the request"})
+    }
+    request.user = await User.findById(decodedToken.id)
+    next()
+}
+
+module.exports = {errorHandler, requestLogger, validate, tokenExtractor, userExtractor}
