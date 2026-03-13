@@ -22,6 +22,7 @@ authRouter.post("/register", [
     body('fullname').trim().notEmpty().withMessage('Full name is required')
 ], validate, register)
 
+
 authRouter.post('/login', [
     body('email').trim().notEmpty().withMessage('Incorrect Email or PW')
             .isEmail().withMessage('Invalid email format'),
