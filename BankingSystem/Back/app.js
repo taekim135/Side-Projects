@@ -2,6 +2,7 @@ const {authRouter} = require("./src/routes/auth.routes")
 const express = require("express")
 const cors = require("cors")
 const {errorHandler, requestLogger, validate} = require("./src/middleware/middleware") 
+const { accountRouter } = require("./src/routes/accounts.routes")
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use(requestLogger)
 
 app.use("/api/auth", authRouter)
+app.use("/api/accounts", accountRouter)
 
 app.get("/health", (request,response) => {
     response.json({status: "OK"})
