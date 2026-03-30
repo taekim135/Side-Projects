@@ -1,7 +1,5 @@
 const {prisma} = require("../utils/db")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const {SECRET, EXPIRES_IN, SALT} = require("../config/env")
+const {generateAccNum} = require("../utils/banking")
 
 
 const fetchAccount = async (accountID, userID) => {
@@ -26,8 +24,18 @@ const fetchAll = async (userID) => {
     return accounts
 }
 
-const openAccount = () => {
+const openAccount = async (userId, accountType) => {
+    const account = await prisma.account.create({
+        data: {
+            userId,
+            accountType,
+            accountNumber: generateAccNum()
+        }
+    })
 
+    if (!account) throw new Error("Failed to open an account")
+
+    return account
 }
 
 module.exports = {fetchAccount, fetchAll, openAccount}

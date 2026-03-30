@@ -1,8 +1,8 @@
 const {authRouter} = require("./src/routes/auth.routes")
+const { accountRouter } = require("./src/routes/accounts.routes")
 const express = require("express")
 const cors = require("cors")
 const {errorHandler, requestLogger, validate} = require("./src/middleware/middleware") 
-const { accountRouter } = require("./src/routes/accounts.routes")
 
 const app = express()
 

@@ -8,7 +8,7 @@ const {tokenExtractor, userExtractor} = require("../middleware/middleware")
 
 // get all accounts associated with the user
 //                      middlewares to run before main handler
-accountRouter.get("/", tokenExtractor,userExtractor, getAccounts)
+accountRouter.get("/", tokenExtractor, userExtractor, getAccounts)
 
 //create accuont
 accountRouter.post("/", tokenExtractor, userExtractor, createAccount)
