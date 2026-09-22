@@ -5,7 +5,8 @@ const {register, login} = require("../controllers/auth.controller")
 const { body } = require('express-validator')
 const {validate} = require("../middleware/middleware")
 
-// check the inputs
+
+// check the inputs for registration
 authRouter.post("/register", [
     body('email').trim().notEmpty().withMessage('Email is required')
             .isEmail().withMessage('Invalid email format'),
