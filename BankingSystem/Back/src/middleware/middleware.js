@@ -18,7 +18,7 @@ const errorHandler = (error, request, response, next) => {
     }else if (error.code === "P2025"){
         response.status(404).json({ "Prisma error": 'Record not Found in DB' })
     }else if (error.message) {
-        response.status(400).json({ error: error.message })
+        response.status(400).json({ "Some error": error.message, "type": error.name })
     }else{
         response.status(500).json({ "Error from Handler": 'Internal Server Error' })
     }
@@ -65,7 +65,7 @@ const userExtractor = async (request, response, next) => {
     const decodedToken = jwt.verify(request.token, SECRET)
 
     if (!decodedToken?.id){
-        return response.status(401).send({error: "User ID not Found in the request"})
+        return response.status(401).send({ErrorInUserExtractor: "User ID not Found in the request"})
     }
     request.user = await prisma.user.findUnique({
         where: {id: decodedToken.id}
