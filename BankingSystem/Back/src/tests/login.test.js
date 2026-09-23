@@ -8,6 +8,8 @@ const {generateUser} = require("./test_helper")
 const { TEST_FULLNAME, TEST_EMAIL, TEST_PW } = require("../config/env")
 const api = supertest(app)
 
+//npm run test = this test file runs
+// goto pakcage.json and change the script
 
 beforeEach(async () => {
     await prisma.user.deleteMany({});
