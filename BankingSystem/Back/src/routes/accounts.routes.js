@@ -10,7 +10,7 @@ const {tokenExtractor, userExtractor} = require("../middleware/middleware")
 //                      middlewares to run before main handler
 accountRouter.get("/", tokenExtractor, userExtractor, getAccounts)
 
-//create accuont
+//create account
 accountRouter.post("/", tokenExtractor, userExtractor, createAccount)
 
 
