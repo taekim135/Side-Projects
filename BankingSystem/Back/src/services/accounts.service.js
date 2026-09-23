@@ -24,16 +24,21 @@ const fetchAll = async (userID) => {
     return accounts
 }
 
+
 const openAccount = async (userId, accountType) => {
+
     const account = await prisma.account.create({
         data: {
             userId,
             accountType,
-            accountNumber: generateAccNum()
+            accountNumber: generateAccNum(),
         }
     })
 
     if (!account) throw new Error("Failed to open an account")
+
+    // to parse BigInt into JSON String
+    account.balanceCents = account.balanceCents.toString()
 
     return account
 }
