@@ -4,7 +4,7 @@ const {generateAccNum} = require("../utils/banking")
 
 const fetchAccount = async (accountID, userID) => {
     const oneAccount = await prisma.account.findUnique({
-        where: {id: accountID}
+        where: {accountNumber: accountID}
     })
 
     if (!oneAccount) throw new Error("Account not found")
