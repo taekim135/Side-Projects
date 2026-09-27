@@ -4,6 +4,18 @@ const express = require("express")
 const cors = require("cors")
 const {errorHandler, requestLogger, validate} = require("./src/middleware/middleware") 
 
+// global patch for convenience (account balance is in BigInt)
+// For a larger codebase 
+// explicit serialization at the API boundary 
+// to avoid mutating a global built-in
+
+// front end will receive the balance amount as string too
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
+
+
+
 const app = express()
 
 // returns middleware
