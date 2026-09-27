@@ -10,15 +10,15 @@ const errorHandler = (error, request, response, next) => {
     logger.error(error.message)
     
     if (error.name === "JsonWebTokenError"){
-        response.status(401).json({ "error": 'Invalid Token' })
+        response.status(401).json({ "Error": 'Invalid Token' })
     }else if (error.name === "TokenExpiredError"){
-        response.status(401).json({ "error": 'Token Expired' })
+        response.status(401).json({ "Error": 'Token Expired' })
     }else if (error.code === "P2002"){
-        response.status(409).json({ "Prisma error": 'Duplicate Entry' })
+        response.status(409).json({ "Prisma Error": 'Duplicate Entry' })
     }else if (error.code === "P2025"){
-        response.status(404).json({ "Prisma error": 'Record not Found in DB' })
+        response.status(404).json({ "Prisma Error": 'Record not Found in DB' })
     }else if (error.message) {
-        response.status(400).json({ "Some error": error.message, "type": error.name })
+        response.status(400).json({ [error.name]: error.message })
     }else{
         response.status(500).json({ "Error from Handler": 'Internal Server Error' })
     }
