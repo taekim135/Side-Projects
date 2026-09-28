@@ -4,9 +4,9 @@ const accountService = require("../services/accounts.service")
 
 const getAccount = async (request,response) => {
     const {id} = request.user
-    const accountID = request.params.accountID
+    const accoutnNum = request.params.accoutnNum
 
-    const result = await accountService.fetchAccount(accountID, id)
+    const result = await accountService.fetchAccount(accoutnNum, id)
     response.status(200).send(result)
 }
 
