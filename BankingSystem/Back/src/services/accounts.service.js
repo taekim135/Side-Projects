@@ -2,14 +2,14 @@ const {prisma} = require("../utils/db")
 const {generateAccNum} = require("../utils/banking")
 
 
-const fetchAccount = async (accountID, userID) => {
+const fetchAccount = async (accountNum, userID) => {
     const oneAccount = await prisma.account.findUnique({
-        where: {accountNumber: accountID}
+        where: {accountNumber: accountNum}
     })
 
     if (!oneAccount) throw new Error("Account not found")
     
-    if (oneAccount.userId != userID) throw new Error("Not Authorized to check other client's account")
+    if (oneAccount.userId !== userID) throw new Error("Not Authorized to check other client's account")
 
     return oneAccount
 }
