@@ -27,7 +27,7 @@ app.use(requestLogger)
 
 app.use("/api/auth", authRouter)
 app.use("/api/accounts", accountRouter)
-app,use("/api/transactions", transactionRouter)
+app.use("/api/transactions", transactionRouter)
 
 app.get("/health", (request,response) => {
     response.json({status: "OK"})
