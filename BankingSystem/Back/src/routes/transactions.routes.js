@@ -10,7 +10,7 @@ const {tokenExtractor, userExtractor} = require("../middleware/middleware")
 
 // route requests to wherever needed
 transactionRouter.post("/deposit", tokenExtractor, userExtractor, makeDeposit)
-transactionRouter.get("/", tokenExtractor, userExtractor, makeWithDraw)
+transactionRouter.post("/withdraw", tokenExtractor, userExtractor, makeWithDraw)
 //transactionRouter.get("/:accountID", tokenExtractor, userExtractor, makeTransfer)
 
 
