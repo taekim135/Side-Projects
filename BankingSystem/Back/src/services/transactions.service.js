@@ -90,17 +90,22 @@ const withdrawMoney = async (amount, userID, accountNum) => {
     return result
 }
 
-const transferMoney = async (amount, userID, accountNum) => {
-    const targetAccount = await fetchAccount(accountNum, userID)
+const transferMoney = async (amount, userID, FromAccountNum, ToAccountNum) => {
+    const fromAccount = await fetchAccount(FromAccoFromAccountNumunt, userID)
 
-    if(targetAccount.balanceCents <= BigInt(amount) || amount <= 0) throw new Error
+    if(fromAccount.balanceCents <= BigInt(amount) || amount <= 0) throw new Error
                             ("Withdraw Failed - Not Enough Balance or Invalid amount")
 
+    if(fromAccount.balanceCents <= BigInt(amount) || amount <= 0) throw new Error
+                            ("Withdraw Failed - Not Enough Balance or Invalid amount")
+    
+    
+    const toAccount = await 
 
     // how do you prevent overdraft under concurrent requests?"). 
     // like if there were 2 withdraws at the same time @same account (race condition)
     // The real-world answer is doing the check inside the transaction with a row lock (SELECT ... FOR UPDATE), 
-    // or relying on the DB constraint to fail the transaction.
+    // or relying on the DB constraint to fail the transaction (latter used in this project)
 
     const result = await prisma.$transaction(async (tx) => {
 
