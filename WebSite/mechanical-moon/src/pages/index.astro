@@ -1,4 +1,9 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Intro from "../components/Intro.astro";
+import Timeline from "../components/Timeline.astro";
+import Projects from "../components/Projects.astro"
 ---
 
 <!--
@@ -9,137 +14,12 @@
 5. Countries visited?
 
 11/26 - move everything to Astro
-
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="generator" content={Astro.generator} />
-    <link rel = "stylesheet" type = "text/css" href = "Resources/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
-    <script src = "Resources/scripts.js" defer></script>
-    <title>TK Portfolio</title>
-</head>
+<BaseLayout>
+    <Hero/>
+    <Intro/>
+    <Timeline/>
+    <Projects/>
+</BaseLayout>
 
-<body>
-    <header>
-        
-    </header>
-    <main>
-        <!-- Landing Page -->
-        <!-- Similar to cover page about me -->
-        <section class = "centered landing" id="home">
-            <h1>Welcome, I'm Taegyun.
-            </h1>
-
-            <img class = "image" alt = "profile picture" src = "Resources/Images/profilePic.png"> 
-            
-            <h2>
-                - Backend & Security Developer - <br>		
-                Thoughtfully designing systems <br> so your data stays with you
-
-            </h2>
-
-        </section>
-
-        <nav>
-            <ul>
-                <li><a href ="#home">HOME</a></li>
-                <li><a href ="#about">ABOUT</a></li>
-                <li><a href ="#timeline">TIMELINE</a></li>
-                <li><a href ="#projects">PROJECTS</a></li>
-                <li><a href ="#contacts">CONTACTS</a></li>
-                <li><button onclick="Language()">Language</button></li>
-            </ul>
-        </nav>
-
-        <!-- Introduction -->
-        <section class = "sectionClass" id ="about">
-            <div class = "opening">
-                <p> I’m a Computer Science & Human Life Science graduate focused on backend and security. 
-                    I moved to South Africa in Grade 4 and earned my BSc in Human Life Science. 
-                    Learning about the human body and genes was interesting, but I wanted to build something. 
-                    <br/> <br/>
-                    A good friend of mine who knew I was a logical problem solver helped me understand the purpose of computer science and showed me what I could build. 
-                    That was the turning point that started a new chapter in Canada. 
-                    My computer science journey in Canada felt like the right fit: working with databases and APIs. 
-                    That’s when I started leaning towards backend and security. 
-                    <br/> <br/>
-                    Now I’m back in Korea completing my military service,
-                    spending my free time building a secure banking API and learning AWS (and catching up on 17 years of missed street food).
-                </p>
-            </div>
-            <div class = "skills">
-                some bullet points of tech skills
-
-            </div>
-        </section>
-
-        <!-- Time Line or Milestone in life. Maybe add some academic things here? -->
-        <section class = "sectionClass" id ="timeline">
-            <div data-key = "title" class = "title">Timeline</div>
-            <p data-en = "Some timeline or Milestones through life" data-kr = "한국어 번역">
-                Some timeline or Milestones through life
-            </p>
-        </section>
-
-        <!-- Projects -->
-        <section class = "sectionClass" id="projects">
-            <div class = "title">Projects</div>
-            <div class = "projectSlides">
-                <a class = "project" href="https://github.com/taekim135/School-Projects/tree/main/QuizBot" target="_blank">
-                    <div class = "project-title">
-                        Quizbot
-                    </div>
-                    <div class = "project-link">2</div>
-                </a>
-                <a class = "project" href="https://github.com/taekim135/School-Projects/tree/main/Server_based%20Snake%20Game" target = "_blank">
-                    <div class = "project-title">Server-Based Snake Game</div>
-                    <div class = "project-link">2</div>
-                </a>
-                <a class = "project" href="https://github.com/taekim135/Side-Projects/tree/main/Bi2Deci" target = "_blank">
-                    <div class = "project-title">Binary-Deci Conversion</div>
-                    <div class = "project-link">description</div>
-                </a>
-                <div class = "project">
-                    <div class = "project-title">FIX SQL Assignment site</div>
-                    <div class = "project-link">description</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contacts -->
-        <section class = "sectionClass" id="contacts">
-            <div class = "links">
-                <a href="mailto:tkim363@uwo.ca" target = "_blank" id = "email">
-                    tkim363@uwo.ca
-                </a>
-                <button aria-label="copy email address" onclick="copyEmail()" class="contactCircle"><img id = "clipboard" alt = "" src="Resources/Images/clipboard.svg"></button>
-                
-
-                <!-- <a onclick="copyEmail()">
-                    <img class="contactCircle" src="Resources/Images/clipboard.svg">
-                </a> -->
-
-                <a href="http://www.linkedin.com/in/tkim0513" target = "_blank">
-                    <img class="contactCircle" src="Resources/Images/linkedin.svg">
-                </a>
-                <a href="https://github.com/taekim135" target = "_blank">
-                    <img class="contactCircle" src="Resources/Images/github.svg">
-                </a>
-            </div>
-        </section>
-
-    </main>
-    <footer>
-        <p>&copy; 2024-2025 - All Rights Reserved.</p>
-        
-    </footer>
-</body>
-
-</html>
